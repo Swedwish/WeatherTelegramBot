@@ -1,1 +1,1 @@
-# WheatherTelegramBot
+# WeatherTelegramBot
