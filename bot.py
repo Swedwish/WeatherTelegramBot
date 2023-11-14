@@ -33,16 +33,20 @@ async def get_weather_command(update: Update, context: ContextTypes.DEFAULT_TYPE
         return
     result = get_weather(city_name = user_data[update.message.from_user.id]["city"], lang=user_data[update.message.from_user.id]["lang"])
     if result == "":
+        print("Weather not found.")
         await update.message.reply_text("Wheather data not found. Try reentering city name.")
     else:
+        print(f"Sending weather data to {update.message.from_user.id}")
         await update.message.reply_text(result)
     
 async def set_city(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_data[update.message.from_user.id]["waitingForCity"] = True
+    user_data[update.message.from_user.id]["waitingForLang"] = False
     await update.message.reply_text("Sure! Please input your city.")
     
 async def set_lang(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_data[update.message.from_user.id]["waitingForLang"] = True
+    user_data[update.message.from_user.id]["waitingForCity"] = False
     await update.message.reply_text("Sure! Please input your language. ('en' for english, 'ru' for russian)")
     
 
